@@ -281,11 +281,13 @@ footer{
 // BURGER
 header{
     display: flex;
-    position: relative;
+    position: sticky;
     justify-content: center;
-    align-items: center; // ← centre verticalement tout le contenu
+    align-items: center; 
     height: 60px;  
     background-color: #FFD5A2;
+    top: 0%;
+    z-index: 99999;
     .site-title{
         display: flex;
         font-weight: 700;
@@ -295,7 +297,7 @@ header{
     }
     .burgerBtn {
         height: 30px;
-        width: 50px;
+        width: 38px;
         margin-right: 0%;
         margin-bottom: 0%;
         display: flex;         
@@ -311,17 +313,26 @@ header{
             height: 4px;
             background-color: black;
         }
+        #x{
+            color: black;
+            font-size: 35px;
+            font-weight: 500;
+            .burgerBtn--style{
+                background-color: transparent;
+            }
+        }
     }
 }
 
 // MENU DÉROULANT
 .menu_deroulant {
     position: fixed;
-    top: 0;
+    top: 60px;
     left: 0;
     width: 100vw;
-    height: 100vh;
-    z-index: 99999;
+    // height: 100vh;
+    height: calc(100vh - 60px);;
+    // z-index: 99998;
     background-color: #FFF5E9;
     display: none;
     flex-direction: column;
@@ -336,18 +347,6 @@ header{
         text-align: center;
         animation: flotement 2s infinite alternate-reverse;
 
-    }
-    .closeBtn {
-        position: absolute;
-        top: 24px;
-        right: 24px;
-        background: none;
-        border: none;
-        font-size: 3rem;
-        cursor: pointer;
-        &:hover {
-            opacity: 0.5;
-        }
     }
     nav ul {
         list-style: none;
@@ -434,7 +433,7 @@ body.no-scroll {
 }
 @media (max-width: 1000px) {
     .mySwiper .swiper-slide {
-    width: 300px;  /* Ajuste la largeur selon tes besoins */
-    height: 400px; /* Ajuste la hauteur */
+    width: 300px;
+    height: 400px;
 }
 }

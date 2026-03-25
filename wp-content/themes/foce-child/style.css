@@ -306,11 +306,13 @@ footer ul::after {
 
 header {
   display: flex;
-  position: relative;
+  position: sticky;
   justify-content: center;
   align-items: center;
   height: 60px;
   background-color: #FFD5A2;
+  top: 0%;
+  z-index: 99999;
 }
 header .site-title {
   display: flex;
@@ -321,7 +323,7 @@ header .site-title {
 }
 header .burgerBtn {
   height: 30px;
-  width: 50px;
+  width: 38px;
   margin-right: 0%;
   margin-bottom: 0%;
   display: flex;
@@ -338,14 +340,21 @@ header .burgerBtn--style {
   height: 4px;
   background-color: black;
 }
+header .burgerBtn #x {
+  color: black;
+  font-size: 35px;
+  font-weight: 500;
+}
+header .burgerBtn #x .burgerBtn--style {
+  background-color: transparent;
+}
 
 .menu_deroulant {
   position: fixed;
-  top: 0;
+  top: 60px;
   left: 0;
   width: 100vw;
-  height: 100vh;
-  z-index: 99999;
+  height: calc(100vh - 60px);
   background-color: #FFF5E9;
   display: none;
   flex-direction: column;
@@ -360,18 +369,6 @@ header .burgerBtn--style {
   align-items: center;
   text-align: center;
   animation: flotement 2s infinite alternate-reverse;
-}
-.menu_deroulant .closeBtn {
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  background: none;
-  border: none;
-  font-size: 3rem;
-  cursor: pointer;
-}
-.menu_deroulant .closeBtn:hover {
-  opacity: 0.5;
 }
 .menu_deroulant nav ul {
   list-style: none;
@@ -455,7 +452,7 @@ body.no-scroll {
 
 @media (max-width: 1000px) {
   .mySwiper .swiper-slide {
-    width: 300px; /* Ajuste la largeur selon tes besoins */
-    height: 400px; /* Ajuste la hauteur */
+    width: 300px;
+    height: 400px;
   }
 }/*# sourceMappingURL=style.css.map */

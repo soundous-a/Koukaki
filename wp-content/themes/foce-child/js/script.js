@@ -166,7 +166,6 @@ document.querySelector("header").appendChild(openBtn);
 const menu_deroulant = document.createElement("div");
 menu_deroulant.classList.add("menu_deroulant");
 menu_deroulant.innerHTML = `
-    <button class="closeBtn">✕</button>
     <img id="logo_menu" src="http://koukaki.local/wp-content/themes/foce/assets/images/logo.png">
     <img class="fleur_animation" id="fleur_orange" src="wp-content/themes/foce/assets/images/flower.png">
     <img class="fleur_animation" id="fleur_violette_gauche" src="wp-content/themes/foce/assets/images/orchid.png">
@@ -190,14 +189,29 @@ document.documentElement.appendChild(menu_deroulant);
 openBtn.addEventListener("click", () => {
     menu_deroulant.classList.add("menu_open");
     document.body.classList.add("no-scroll");
+    openBtn.innerHTML = `<span id="x">✕</span>`;
+
+    const x = document.getElementById("x");
+    x.addEventListener("click", (event) => {
+        event.stopPropagation(); 
+        openBtn.innerHTML = `
+            <span class="burgerBtn--style"></span>
+            <span class="burgerBtn--style"></span>
+            <span class="burgerBtn--style"></span>
+        `;
+        menu_deroulant.classList.remove("menu_open");
+        document.body.classList.remove("no-scroll");
+    });
 });
-document.querySelector(".closeBtn").addEventListener("click", () => {
-    menu_deroulant.classList.remove("menu_open");
-    document.body.classList.remove("no-scroll");
-});
+
 const ancres = menu_deroulant.querySelectorAll(".menu-items");
 ancres.forEach(ancre => {
     ancre.addEventListener("click", () => {
+        openBtn.innerHTML = `
+            <span class="burgerBtn--style"></span>
+            <span class="burgerBtn--style"></span>
+            <span class="burgerBtn--style"></span>
+        `;
         menu_deroulant.classList.remove("menu_open");
         document.body.classList.remove("no-scroll");
     });
