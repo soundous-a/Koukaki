@@ -13,27 +13,29 @@ document.addEventListener("DOMContentLoaded", function() {
         video_background.muted = true;
         video_background.loop = true;
         video_background.classList.add("background_video");
-        // On enlève l'image de fond SEULEMENT si la vidéo est chargée
         banner.style.backgroundImage = "none";
     }
     
-    // Parallax
+    // *************** Parallax ***************
     const logo_to_remove = document.querySelector(".banner img");
     logo_to_remove.remove();
     const parallax_logo = document.createElement("div");
     const logo = document.createElement("img");
     logo.src = "http://koukaki.local/wp-content/themes/foce/assets/images/logo.png";
     parallax_logo.appendChild(logo);
+    // le logo est dans une div pcq trasform peut s'appliquer qu'une fois,
+    // donc le logo va flotter et le div le contenany appliquera la parallax
     parallax_logo.classList.add("parallax_logo");
     logo.classList.add("logo-floating");
-    document.querySelector(".banner").appendChild(parallax_logo);
-
-    window.addEventListener("scroll", () => {
+    document.querySelector(".banner").appendChild(parallax_logo); // l'ajoute au DOM
+    // parallax
+    window.addEventListener("scroll", () => { // au srcoll
     const scrollValue = window.scrollY;
     parallax_logo.style.transform = `translateY(${scrollValue * 0.4}px)`;
 });
 
     // *************** FADE-IN *************** \\
+    // j'ajoute la class section__fadein pour toutes les sections
     const sections = document.querySelectorAll("section");
     for (let index = 0; index < sections.length; index++) {
         sections[index].classList.add("section__fadein");
@@ -42,11 +44,10 @@ document.addEventListener("DOMContentLoaded", function() {
     // *************** TRANSITION H2 *************** \\
     let allH2 = document.querySelectorAll("h2");
     allH2.forEach(h2 => {
-        let text = h2.textContent;
-        h2.textContent = "";
         let span = document.createElement("span");
         span.classList.add("h2__text-base");
-        span.textContent = text;
+        span.textContent = h2.textContent;
+        h2.textContent = "";
         h2.appendChild(span);
     });
 
@@ -137,6 +138,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("main").appendChild(new_section);
 
     // *************** EFFET SUR LES NUAGES *************** \\
+
     const little_cloud = document.createElement("img");
     little_cloud.classList.add("little_cloud");
     little_cloud.src = "http://koukaki.local/wp-content/uploads/2026/02/little_cloud.png";
@@ -149,6 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#place").appendChild(big_cloud);
 
 // *************** BURGER *************** \\
+
 document.querySelector(".main-navigation").remove();
 document.querySelector(".site-header").innerHTML = `
     <h1>Fleurs d'orangers & chats errants</h1>
@@ -160,7 +163,8 @@ openBtn.innerHTML = `
     <span class="burgerBtn--style"></span>
     <span class="burgerBtn--style"></span>
 `;
-document.querySelector("header").appendChild(openBtn);
+const header = document.querySelector("header")
+header.appendChild(openBtn);
 
 // Menu déroulant
 const menu_deroulant = document.createElement("div");
@@ -190,9 +194,10 @@ openBtn.addEventListener("click", () => {
     menu_deroulant.classList.add("menu_open");
     document.body.classList.add("no-scroll");
     openBtn.innerHTML = `<span id="x">✕</span>`;
-
+    header.classList.add("full_width");
     const x = document.getElementById("x");
     x.addEventListener("click", (event) => {
+        header.classList.remove("full_width");
         event.stopPropagation(); 
         openBtn.innerHTML = `
             <span class="burgerBtn--style"></span>
