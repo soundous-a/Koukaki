@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector(".banner").appendChild(parallax_logo); // l'ajoute au DOM
     // parallax
     window.addEventListener("scroll", () => { // au srcoll
-    const scrollValue = window.scrollY;
+    const scrollValue = window.scrollY; // distance parcouru *0.4 pour le mvmt
     parallax_logo.style.transform = `translateY(${scrollValue * 0.4}px)`;
 });
 
@@ -51,14 +51,14 @@ document.addEventListener("DOMContentLoaded", function() {
         h2.appendChild(span);
     });
 
-    const option = { threshold: 0.1 };
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+    const option = { threshold: 0.1 }; // quand 10% de m'élémenet est visible
+    const observer = new IntersectionObserver((event) => {
+        event.forEach(entry => { // pour chaque entrée
             if (entry.isIntersecting)
                 entry.target.querySelector(".h2__text-base").classList.add("h2__span");
         });
     }, option);
-    allH2.forEach(h2 => observer.observe(h2));
+    allH2.forEach(h2 => observer.observe(h2)); // j'observe pour chaque h2
 
     // *************** CARROUSEL *************** \\
     const elementToRemove = document.querySelectorAll("figure");
@@ -95,21 +95,21 @@ document.addEventListener("DOMContentLoaded", function() {
     container.appendChild(swiperDiv);
 
     new Swiper(".mySwiper", {
-        effect: "coverflow",
-        grabCursor: true,
+        effect: "coverflow", // effet de rotation
+        grabCursor: true, // change le style ede cursor
         centeredSlides: true,
         slidesPerView: "auto",
-        loop: true,
-        observer: true,
-        observeParents: true,
+        // loop: true,
+        observer: true, // recalcule en cas de changement 
+        observeParents: true, // meme chose 
         coverflowEffect: {
             rotate: 50,
             stretch: 0,
             depth: 100,
             modifier: 1,
-            slideShadows: false,
+            slideShadows: false, // pas d'ombre
         },
-        pagination: ".swiper-pagination",
+        pagination: ".swiper-pagination", // affichage des dots 
     });
 
     // *************** NOUVELLE SECTION OSCAR *************** \\
