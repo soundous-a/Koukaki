@@ -6,11 +6,10 @@ function theme_enqueue_styles() {
 
 add_action( 'wp_enqueue_scripts', 'foce_child_enqueue_scripts' );
 function foce_child_enqueue_scripts() {
-    // On charge le fichier JS
     wp_enqueue_script( 
         'foce-child-carrousel', 
         get_stylesheet_directory_uri() . '/js/script.js', 
-        array(), // Dépendances (ex: array('jquery') si tu l'utilises)
+        array(), 
         '1.0', 
         true // Charge le script dans le footer
     );
