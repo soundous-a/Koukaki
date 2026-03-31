@@ -15,7 +15,7 @@
     from{opacity: 0;}
     to{opacity: 1;}
 }
-section.section__fadein{
+.section__fadein{
     opacity: 0;
     @for $index from 1 through 3 {
         &:nth-of-type(#{$index}) { // la pseudoclass: cible un élément parmis les meme que lui 
@@ -56,7 +56,6 @@ section.section__fadein{
         }
     }
 }
-
 footer{
     ul::after{
         animation: flowers_rotations--right 35s linear infinite;
@@ -230,7 +229,7 @@ footer{
 }
 .menu_deroulant {
     position: fixed;
-    top: 60px;
+    top: 90px;
     left: 0;
     height: calc(100vh - 60px);;
     background-color: #FFF5E9;
@@ -366,6 +365,7 @@ header{
     height: 60px;  
     background-color: #FFD5A2;
     top: 0%;
+    position: relative;
     .site-title{
         display: flex;
         font-weight: 700;

@@ -6,12 +6,12 @@ function theme_enqueue_styles() {
 
 add_action( 'wp_enqueue_scripts', 'foce_child_enqueue_scripts' );
 function foce_child_enqueue_scripts() {
-    wp_enqueue_script( 
-        'foce-child-carrousel', 
-        get_stylesheet_directory_uri() . '/js/script.js', 
-        array(), 
-        '1.0', 
-        true // Charge le script dans le footer
+    wp_enqueue_script( // file d'attente 
+        'foce-child-carrousel',  // identifiant de mon script
+        get_stylesheet_directory_uri() . '/js/script.js',  // cible child + chemin script
+        array(), // dépendances => JS pur
+        '1.0',  // rafraichissement du navigateur 
+        true // dans la fin du footer => html chargé
     );
 }
 

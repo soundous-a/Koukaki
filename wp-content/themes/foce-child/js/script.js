@@ -2,37 +2,7 @@
 // foce-child/js/script.js
 
 document.addEventListener("DOMContentLoaded", function() {
-
-    // *************** VIDÉO DE FOND *************** \\
-    const banner = document.querySelector(".banner");
-    const video_background = document.createElement("video");
-    banner.prepend(video_background);
-    if (window.innerWidth > 1000){
-        video_background.src = "wp-content/themes/foce-child/src/video_koukaki.mp4";
-        video_background.autoplay = true;
-        video_background.muted = true;
-        video_background.loop = true;
-        video_background.classList.add("background_video");
-        banner.style.backgroundImage = "none";
-    }
-    
-    // *************** Parallax ***************
-    const logo_to_remove = document.querySelector(".banner img");
-    logo_to_remove.remove();
-    const parallax_logo = document.createElement("div");
-    const logo = document.createElement("img");
-    logo.src = "http://koukaki.local/wp-content/themes/foce/assets/images/logo.png";
-    parallax_logo.appendChild(logo);
-    // le logo est dans une div pcq trasform peut s'appliquer qu'une fois,
-    // donc le logo va flotter et le div le contenany appliquera la parallax
-    parallax_logo.classList.add("parallax_logo");
-    logo.classList.add("logo-floating");
-    document.querySelector(".banner").appendChild(parallax_logo); // l'ajoute au DOM
-    // parallax
-    window.addEventListener("scroll", () => { // au srcoll
-    const scrollValue = window.scrollY; // distance parcouru *0.4 pour le mvmt
-    parallax_logo.style.transform = `translateY(${scrollValue * 0.4}px)`;
-});
+    // Tout le html est chargé 
 
     // *************** FADE-IN *************** \\
     // j'ajoute la class section__fadein pour toutes les sections
@@ -40,77 +10,6 @@ document.addEventListener("DOMContentLoaded", function() {
     for (let index = 0; index < sections.length; index++) {
         sections[index].classList.add("section__fadein");
     }
-
-    // *************** TRANSITION H2 *************** \\
-    let allH2 = document.querySelectorAll("h2");
-    allH2.forEach(h2 => {
-        let span = document.createElement("span");
-        span.classList.add("h2__text-base");
-        span.textContent = h2.textContent;
-        h2.textContent = "";
-        h2.appendChild(span);
-    });
-
-    const option = { threshold: 0.1 }; // quand 10% de m'élémenet est visible
-    const observer = new IntersectionObserver((event) => {
-        event.forEach(entry => { // pour chaque entrée
-            if (entry.isIntersecting)
-                entry.target.querySelector(".h2__text-base").classList.add("h2__span");
-        });
-    }, option);
-    allH2.forEach(h2 => observer.observe(h2)); // j'observe pour chaque h2
-
-    // *************** CARROUSEL *************** \\
-    const elementToRemove = document.querySelectorAll("figure");
-    for (let index = 0; index < elementToRemove.length; index++) {
-        elementToRemove[index].remove();
-    }
-    const characters = [
-        { "name": "Kawaneko",  "src": "http://koukaki.local/wp-content/uploads/2022/06/Kawaneko.png"    },
-        { "name": "Orenjiiro", "src": "http://koukaki.local/wp-content/uploads/2022/06/Orenjiiro-1.png" },
-        { "name": "Pinku",     "src": "http://koukaki.local/wp-content/uploads/2022/06/Pinku-1.png"     },
-        { "name": "Tenshi",    "src": "http://koukaki.local/wp-content/uploads/2022/06/Tenshi-1.png"    },
-        { "name": "Jaakuna",   "src": "http://koukaki.local/wp-content/uploads/2022/06/Jaakuna-1.png"   }
-    ];
-    const container = document.getElementById("characters");
-    container.innerHTML = '';
-
-    const swiperDiv = document.createElement("div");
-    swiperDiv.className = "swiper mySwiper";
-
-    const wrapper = document.createElement("div");
-    wrapper.className = "swiper-wrapper";
-
-    characters.forEach(char => {
-        const slide = document.createElement("div");
-        slide.className = "swiper-slide";
-        slide.innerHTML = `
-            <img src="${char.src}" alt="${char.name}">
-            <p>${char.name}</p>
-        `;
-        wrapper.appendChild(slide);
-    });
-
-    swiperDiv.appendChild(wrapper);
-    container.appendChild(swiperDiv);
-
-    new Swiper(".mySwiper", {
-        effect: "coverflow", // effet de rotation
-        grabCursor: true, // change le style ede cursor
-        centeredSlides: true,
-        slidesPerView: "auto",
-        // loop: true,
-        observer: true, // recalcule en cas de changement 
-        observeParents: true, // meme chose 
-        coverflowEffect: {
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: false, // pas d'ombre
-        },
-        pagination: ".swiper-pagination", // affichage des dots 
-    });
 
     // *************** NOUVELLE SECTION OSCAR *************** \\
     const new_article = document.createElement("article");
@@ -136,6 +35,112 @@ document.addEventListener("DOMContentLoaded", function() {
     new_section.appendChild(new_article);
 
     document.querySelector("main").appendChild(new_section);
+
+    // *************** TRANSITION H2 *************** \\
+    let allH2 = document.querySelectorAll("h2");
+    allH2.forEach(h2 => {
+        let span = document.createElement("span");
+        span.classList.add("h2__text-base");
+        span.textContent = h2.textContent;
+        h2.textContent = "";
+        h2.appendChild(span);
+    });
+
+    const option = { threshold: 0.2 }; // quand 20% de m'élémenet est visible
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { // pour chaque entrée
+            if (entry.isIntersecting) // true or false
+                entry.target.querySelector(".h2__text-base").classList.add("h2__span");
+        });
+    }, option);
+    allH2.forEach(h2 => observer.observe(h2)); // j'observe pour chaque h2
+
+    // *************** VIDÉO DE FOND *************** \\
+    const banner = document.querySelector(".banner");
+    const video_background = document.createElement("video");
+    banner.prepend(video_background);
+    // if (window.innerWidth > 1000) J'enlève le if
+    video_background.src = "wp-content/themes/foce-child/src/video_koukaki.mp4";
+    video_background.autoplay = true;
+    video_background.muted = true;
+    video_background.loop = true;
+    video_background.classList.add("background_video");
+    banner.style.backgroundImage = "none";
+    //En cas d'erreur de chargement
+    video_background.addEventListener("error", (event) =>{
+        video_background.remove(); // je supprime la vidéo
+        // j'ajoute l'image en background
+        banner.style.backgroundImage = 'url("http://koukaki.local/wp-content/uploads/2026/03/Studio-Koukaki-image-header-1.png")';
+    });
+    
+    // *************** Parallax ***************
+    const logo_to_remove = document.querySelector(".banner img");
+    logo_to_remove.remove();
+    const parallax_logo = document.createElement("div");
+    const logo = document.createElement("img");
+    logo.src = "http://koukaki.local/wp-content/themes/foce/assets/images/logo.png";
+    parallax_logo.appendChild(logo);
+    // le logo est dans une div pcq trasform peut s'appliquer qu'une fois,
+    // donc le logo va flotter et le div le contenant appliquera la parallax
+    parallax_logo.classList.add("parallax_logo");
+    logo.classList.add("logo-floating");
+    document.querySelector(".banner").appendChild(parallax_logo); // l'ajoute au DOM
+    // parallax
+    window.addEventListener("scroll", () => { // au srcoll
+    const scrollValue = window.scrollY; // distance parcouru 
+    parallax_logo.style.transform = `translateY(${scrollValue * 0.4}px)`;
+    // distance parcouru x 0.4 pour le mvmt
+});
+
+    // *************** CARROUSEL *************** \\
+    const elementToRemove = document.querySelectorAll("figure");
+    for (let index = 0; index < elementToRemove.length; index++) {
+        elementToRemove[index].remove();
+    }
+    const characters = [
+        { "name": "Kawaneko",  "src": "http://koukaki.local/wp-content/uploads/2022/06/Kawaneko.png"    },
+        { "name": "Orenjiiro", "src": "http://koukaki.local/wp-content/uploads/2022/06/Orenjiiro-1.png" },
+        { "name": "Pinku",     "src": "http://koukaki.local/wp-content/uploads/2022/06/Pinku-1.png"     },
+        { "name": "Tenshi",    "src": "http://koukaki.local/wp-content/uploads/2022/06/Tenshi-1.png"    },
+        { "name": "Jaakuna",   "src": "http://koukaki.local/wp-content/uploads/2022/06/Jaakuna-1.png"   }
+    ];
+    const container = document.getElementById("characters");
+    container.innerHTML = ''; 
+
+    const swiperDiv = document.createElement("div");
+    swiperDiv.className = "swiper mySwiper"; //le conteneur principal
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "swiper-wrapper"; // contient tous les perosos
+
+    characters.forEach(char => {
+        const slide = document.createElement("div");
+        slide.className = "swiper-slide";
+        slide.innerHTML = `
+            <img src="${char.src}" alt="${char.name}">
+            <p>${char.name}</p>
+        `;
+        wrapper.appendChild(slide);
+    });
+
+    swiperDiv.appendChild(wrapper);
+    container.appendChild(swiperDiv);
+
+    new Swiper(".mySwiper", {
+        effect: "coverflow", // effet de rotation
+        grabCursor: true, // change le style ede cursor
+        centeredSlides: true, // slide au milieu
+        slidesPerView: "auto",
+        observer: true, // recalcule en cas de changement 
+        observeParents: true, // meme chose 
+        coverflowEffect: {
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: false, // pas d'ombre
+        },
+    });
 
     // *************** EFFET SUR LES NUAGES *************** \\
 
